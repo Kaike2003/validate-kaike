@@ -18,9 +18,9 @@
   "author": "Kaike Gaspar Bartolomeu",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kaike2003/validations-kaike.git"
+    "url": "https://github.com/Kaike2003/validations-kaike"
   },
-  "homepage": "https://github.com/kaike2003/validations-kaike",
+  "homepage": "https://github.com/Kaike2003/validations-kaike",
   "license": "ISC",
   "packageManager": "pnpm@10.5.1",
   "devDependencies": {

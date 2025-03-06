@@ -8,13 +8,13 @@ Instale a biblioteca usando **npm**, **yarn** ou **pnpm**:
 
 ```sh
 # Com npm
-npm install validations-kit
+npm install validations-kaike
 
 # Com yarn
-yarn add validations-kit
+yarn add validations-kaike
 
 # Com pnpm
-pnpm add validations-kit
+pnpm add validations-kaike
 ```
 
 ## 🚀 Como Usar
@@ -24,7 +24,7 @@ Importe os validadores individuais ou a função `validate` para validar vários
 ### ✅ Validação única
 
 ```ts
-import { IsEmail, IsBi, IsIban, IsPassport } from "validations-kit";
+import { IsEmail, IsBi, IsIban, IsPassport } from "validations-kaike";
 
 console.log(IsEmail("teste@email.com"));
 // { message: "Valid email", value: "teste@email.com" }
@@ -56,7 +56,7 @@ try {
 Use `validate()` para validar vários inputs de uma vez.
 
 ```ts
-import { validate, IsEmail, IsBi, IsIban, IsPassport } from "validations-kit";
+import { validate, IsEmail, IsBi, IsIban, IsPassport } from "validations-kaike";
 
 validate([
   { fn: IsEmail, input: "teste@email.com" },
