@@ -1,0 +1,18 @@
+export type EmailProvider =
+  | "Generic Email"
+  | "Gmail"
+  | "Hotmail/Outlook"
+  | "Yahoo"
+  | "ProtonMail"
+  | "Yandex"
+  | "iCloud"
+  | "Zoho Mail"
+  | "GMX"
+  | "Mail.ru"
+  | "Japan (docomo)"
+  | "China (163.com)"
+  | "Brazil (UOL)"
+  | "South Korea (Naver)"
+  | "Germany (Web.de)"
+  | "France (Orange)"
+  | "United Kingdom (BT Internet)";

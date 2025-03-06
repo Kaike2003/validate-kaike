@@ -3,7 +3,7 @@
     "emitDeclarationOnly": false,
     "declaration": true,
     "target": "es6",
-    "lib": ["ES6", "ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
+    "lib": ["ES6"],
     "strict": true,
     "noImplicitAny": false,
     "esModuleInterop": true,

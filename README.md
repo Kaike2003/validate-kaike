@@ -1,111 +1,115 @@
-# 🛠️ validations-kaike
+# 🚀 validate-kaike
 
-Uma biblioteca leve para validação de **emails, bilhetes de identidade (BI), IBANs e passaportes**. 🚀
+A modern and lightweight library for validating **emails, identity cards (ID), IBANs, passports, and phone numbers**. ✅
 
-## 📦 Instalação
+## 📦 Installation
 
-Instale a biblioteca usando **npm**, **yarn** ou **pnpm**:
+Install the library using your favorite package manager:
 
 ```sh
-# Com npm
-npm install validations-kaike
+# Using npm
+npm install validate-kaike
 
-# Com yarn
-yarn add validations-kaike
+# Using yarn
+yarn add validate-kaike
 
-# Com pnpm
-pnpm add validations-kaike
+# Using pnpm
+pnpm add validate-kaike
 ```
 
-## 🚀 Como Usar
+## 🚀 How to Use
 
-Importe os validadores individuais ou a função `validate` para validar vários inputs ao mesmo tempo.
+The `validate` function **must always be used** for both single and multiple validations, ensuring consistency and simplicity in implementation.
 
-### ✅ Validação única
+### 🎯 Single Validation
 
 ```ts
-import { IsEmail, IsBi, IsIban, IsPassport } from "validations-kaike";
+import {
+  validate,
+  validateEmail,
+  validateIdentityCard,
+  validateIban,
+  validatePassport,
+  validatePhoneCountryCode,
+} from "validate-kaike";
 
-console.log(IsEmail("teste@email.com"));
-// { message: "Valid email", value: "teste@email.com" }
+validate([{ fn: validateEmail, input: "test@email.com", provider: "GMAIL" }])
+  .then(console.log)
+  .catch(console.error);
 
-console.log(IsBi("123456789LA001"));
-// { message: "Valid identity card", value: "123456789LA001" }
-
-console.log(IsIban("AO06123456789012345678901"));
-// { message: "Valid Iban", value: "AO06123456789012345678901" }
-
-console.log(IsPassport("A1234567"));
-// { message: "Valid passport", value: "A1234567" }
+validate([{ fn: validateIdentityCard, input: "123456789LA001", country: "AO" }])
+  .then(console.log)
+  .catch(console.error);
 ```
 
-Se a entrada for inválida, a função **lança um erro**.
+If the input is invalid, an error will be thrown:
 
 ```ts
-try {
-  console.log(IsEmail("email_invalido"));
-} catch (error) {
-  console.error(error.message); // "Invalid email"
-}
+validate([{ fn: validateEmail, input: "invalid_email", provider: "GMAIL" }]).catch(console.error);
+```
+
+Output:
+
+```ts
+[{ message: "Invalid email", value: "invalid_email" }];
 ```
 
 ---
 
-### 🔄 Validação múltipla com `validate`
+### 🔄 Multiple Validation
 
-Use `validate()` para validar vários inputs de uma vez.
+Validate multiple inputs simultaneously with `validate()`:
 
 ```ts
-import { validate, IsEmail, IsBi, IsIban, IsPassport } from "validations-kaike";
-
 validate([
-  { fn: IsEmail, input: "teste@email.com" },
-  { fn: IsBi, input: "123456789LA001" },
-  { fn: IsIban, input: "AO06123456789012345678901" },
-  { fn: IsPassport, input: "A1234567" }
+  { fn: validateEmail, input: "test@email.com", provider: "GMAIL" },
+  { fn: validateIdentityCard, input: "123456789LA001", country: "AO" },
+  { fn: validateIban, input: "AO06123456789012345678901", country: "AO" },
+  { fn: validatePassport, input: "A1234567", country: "US" },
+  { fn: validatePhoneCountryCode, input: "+244923456789", phoneCountryCode: "+244" },
 ])
   .then(console.log)
   .catch(console.error);
 ```
 
-📌 **Se todas as validações passarem**, o `validate` retorna um array com os resultados:
+✅ **If all validations pass**, the return will be an array with the results:
 
 ```ts
 [
-  { message: "Valid email", value: "teste@email.com" },
+  { message: "Valid email", value: "test@email.com" },
   { message: "Valid identity card", value: "123456789LA001" },
-  { message: "Valid Iban", value: "AO06123456789012345678901" },
-  { message: "Valid passport", value: "A1234567" }
-]
+  { message: "Valid IBAN", value: "AO06123456789012345678901" },
+  { message: "Valid Passport", value: "A1234567" },
+  { message: "Valid phone country code", value: "+244923456789" },
+];
 ```
 
-❌ **Se alguma validação falhar**, `validate` rejeita a promessa com um array de erros:
+❌ **If any validation fails**, `validate` rejects the promise with an array of errors:
 
 ```ts
-validate([
-  { fn: IsEmail, input: "email_invalido" }
-]).catch(console.error);
+validate([{ fn: validateEmail, input: "invalid_email", provider: "GMAIL" }]).catch(console.error);
 ```
 
-Saída:
+Output:
+
 ```ts
-[ { message: "Invalid email", value: "email_invalido" } ]
+[{ message: "Invalid email", value: "invalid_email" }];
 ```
 
 ---
 
-## 📜 Métodos Disponíveis
+## 📜 Available Methods
 
-| Método       | Valida                  | Exemplo Válido     | Exemplo Inválido |
-|-------------|-------------------------|---------------------|-------------------|
-| `IsEmail`   | Email                    | `teste@email.com`  | `email_invalido` |
-| `IsBi`      | Bilhete de identidade    | `123456789LA001`   | `12345ABC` |
-| `IsIban`    | IBAN                     | `AO06123456789012345678901` | `123456` |
-| `IsPassport`| Passaporte               | `A1234567`         | `XYZ12` |
+| Method                     | Validates          | Valid Example               | Invalid Example | Additional Argument                       |
+| -------------------------- | ------------------ | --------------------------- | --------------- | ----------------------------------------- |
+| `validateEmail`            | Email              | `test@email.com`            | `invalid_email` | `provider` (only for this method)         |
+| `validateIdentityCard`     | Identity card      | `123456789LA001`            | `12345ABC`      | `country` (only for this method)          |
+| `validateIban`             | IBAN               | `AO06123456789012345678901` | `123456`        | `country` (only for this method)          |
+| `validatePassport`         | Passport           | `A1234567`                  | `XYZ12`         | `country` (only for this method)          |
+| `validatePhoneCountryCode` | Phone country code | `+244923456789`             | `+000000000000` | `phoneCountryCode` (only for this method) |
 
 ---
 
-## 📄 Licença
+## 🎓 License
 
-MIT © 2025 - [Teu Nome](https://github.com/seuusuario)
-
+MIT © 2025 - [Kaike Bartolomeu](https://github.com/kaike2003)
