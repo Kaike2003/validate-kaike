@@ -1,4 +1,4 @@
-# 🚀 validate-kaike
+# 🚀 validate-kaike-js
 
 A modern and lightweight library for validating **emails, identity cards (ID), IBANs, passports, and phone numbers**. ✅
 
@@ -8,13 +8,13 @@ Install the library using your favorite package manager:
 
 ```sh
 # Using npm
-npm install validate-kaike
+npm install validate-kaike-js
 
 # Using yarn
-yarn add validate-kaike
+yarn add validate-kaike-js
 
 # Using pnpm
-pnpm add validate-kaike
+pnpm add validate-kaike-js
 ```
 
 ## 🚀 How to Use
@@ -31,7 +31,7 @@ import {
   validateIban,
   validatePassport,
   validatePhoneCountryCode,
-} from "validate-kaike";
+} from "validate-kaike-js";
 
 validate([{ fn: validateEmail, input: "test@email.com", provider: "GMAIL" }])
   .then(console.log)
